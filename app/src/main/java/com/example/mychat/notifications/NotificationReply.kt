@@ -7,10 +7,9 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import com.example.mychat.R
-import com.example.mychat.SharedPrefs
+import com.example.mychat.model.SharedPrefs
 import com.example.mychat.Utils
 import com.google.firebase.firestore.FirebaseFirestore
-import okhttp3.internal.notify
 
 //import kotlinx.coroutines.NonCancellable.message
 
@@ -76,9 +75,8 @@ class NotificationReply : BroadcastReceiver() {
                     .Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.chatapp)
                     .setContentText("Reply Sent").build()
+
             notificationManager.notify(replyid!!,repliedNotification)
-
-
 
         }
 

@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.mychat
+package com.example.mychat.activity
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.mychat.R
 import com.example.mychat.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,7 +34,7 @@ class SignUpActivity : AppCompatActivity() {
         progressDialogSignUp = ProgressDialog(this)
 
         signUpBinding.tvSignUpToLogin.setOnClickListener {
-            startActivity(Intent(this,SignInActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
 
         }
 

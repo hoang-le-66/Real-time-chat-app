@@ -12,12 +12,12 @@ import android.os.Build
 import android.text.Html
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.example.mychat.MainActivity
+import androidx.core.content.getSystemService
+import com.example.mychat.activity.MainActivity
 import com.example.mychat.R
-import com.example.mychat.SharedPrefs
+import com.example.mychat.model.SharedPrefs
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import okhttp3.internal.notify
 import java.util.*
 import kotlin.random.Random
 
@@ -65,6 +65,7 @@ class FirebaseService : FirebaseMessagingService() {
 
         //Create an intent for reply action
         val replyPendingIntent = PendingIntent.getBroadcast(this, 0, replyIntent, PendingIntent.FLAG_MUTABLE)
+
         val replyAction = NotificationCompat.Action.Builder(R.drawable.reply, "Reply", replyPendingIntent)
             .addRemoteInput(remoteInput).build()
 

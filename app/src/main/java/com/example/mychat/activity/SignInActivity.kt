@@ -1,15 +1,15 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.mychat
+package com.example.mychat.activity
 
 import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.mychat.R
 import com.example.mychat.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -32,7 +32,7 @@ class SignInActivity : AppCompatActivity() {
         //if user has login, it's only once until you logout
         if (auth.currentUser!=null){
 
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
 
         }
 
@@ -40,7 +40,7 @@ class SignInActivity : AppCompatActivity() {
 
         signInBinding.tvCreateNewAccount.setOnClickListener {
 
-            startActivity(Intent(this,SignUpActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
 
         }
 
@@ -76,7 +76,7 @@ class SignInActivity : AppCompatActivity() {
 
             if(it.isSuccessful){
                 progressDialogSignIn.dismiss()
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
             }else{
                 progressDialogSignIn.dismiss()
                 Toast.makeText(this,"Invalid Credentials",Toast.LENGTH_LONG).show()

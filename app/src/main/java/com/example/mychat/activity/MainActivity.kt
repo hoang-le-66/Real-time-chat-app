@@ -1,11 +1,13 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.mychat
+package com.example.mychat.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.mychat.R
+import com.example.mychat.Utils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.installations.FirebaseInstallations
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateToken() {
         val firebaseInstance = FirebaseInstallations.getInstance()
+
         firebaseInstance.id.addOnSuccessListener { installationid ->
             FirebaseMessaging.getInstance().token.addOnSuccessListener { gettoken ->
                 token = gettoken
@@ -71,9 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
 
-
             firestore.collection("Users").document(Utils.getUILoggedIn()).update("status", "Offline")
-
 
         }
     }
@@ -83,9 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
 
-
             firestore.collection("Users").document(Utils.getUILoggedIn()).update("status", "Online")
-
 
         }
     }
@@ -95,9 +94,7 @@ class MainActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
 
-
             firestore.collection("Users").document(Utils.getUILoggedIn()).update("status", "Online")
-
 
         }
     }

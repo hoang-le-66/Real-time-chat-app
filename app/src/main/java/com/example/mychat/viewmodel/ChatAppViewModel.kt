@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mychat.MyApplication
-import com.example.mychat.SharedPrefs
+import com.example.mychat.model.SharedPrefs
 import com.example.mychat.Utils
 import com.example.mychat.model.Messages
 import com.example.mychat.model.RecentChats
@@ -30,6 +30,8 @@ class ChatAppViewModel :ViewModel() {
     val usersRepo= UsersRepo()
     val messagesRepo= MessageRepo()
     val recentChatRepo= ChatListRepo()
+
+    var token: String? = null
 
     init {
         getCurrentUser()
@@ -90,13 +92,15 @@ class ChatAppViewModel :ViewModel() {
             .document(uniqueID.toString())
             .collection("chats")
             .document(Utils.getTime())
-            .set(hashMap).addOnCompleteListener { task ->
+            .set(hashMap)
+            .addOnCompleteListener { task ->
                 //all work for recent chats list
                 val hashMapForRecent = hashMapOf<String, Any>(
                     "friendid" to receiver,
                     "time" to Utils.getTime(),
                     "sender" to Utils.getUILoggedIn(),
                     "message" to message.value!!,
+                    //fixed here
                     "friendsimage" to friendImage,
                     "name" to friendName,
                     "person" to "you"
@@ -112,11 +116,13 @@ class ChatAppViewModel :ViewModel() {
                         "time", Utils.getTime(), "person", name.value!!
                     )
                 //for noti work
+                //fix path
                 firestore.collection("Tokens").document(receiver)
                     .addSnapshotListener { value, error ->
                         if (value != null && value.exists()) {
                             val tokenObject = value.toObject(Token::class.java)
-                            token = tokenObject?.token
+
+                            token = tokenObject?.token!!
 
                             val loggedUsername =
                                 mySharedPrefs.getValue("username")!!.split("\\s".toRegex())[0]
@@ -132,17 +138,17 @@ class ChatAppViewModel :ViewModel() {
                             } else {
                                 Log.e("VIEWMODEL", "NO TOKEN,NO NOTIFICATION")
                                 Log.e("ViewModelToken", "tokenis: $token")
-
                             }
 
                         }
+
 
                         if (task.isSuccessful) {
                             message.value = ""
                         }
                     }
             }
-            }
+    }
 
     private fun sendNotification(notification: PushNotification) = viewModelScope.launch {
         try {

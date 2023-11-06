@@ -70,9 +70,13 @@ class ChatFromHomeFragment : Fragment() {
 //        }
 
         Glide.with(requireContext()).load(args.recentchats.friendsimage!!).into(circleImageView)
+
+        tvChatUserName.setText(args.recentchats.name)
+        //tvChatUserStatus.setText(args.recentchats.status)
         //Work for status
         val firestore = FirebaseFirestore.getInstance()
-        firestore.collection("Users").document(args.recentchats.friendid!!).addSnapshotListener { value, error ->
+        firestore.collection("Users").document(args.recentchats.friendid!!)
+            .addSnapshotListener { value, error ->
 
             if(error!=null){
                 return@addSnapshotListener
@@ -85,12 +89,6 @@ class ChatFromHomeFragment : Fragment() {
             }
 
         }
-
-
-        tvChatUserName.setText(args.recentchats.name)
-
-
-
 
         //??
         chatFromHomeBinding.viewModel = chatAppViewModel
